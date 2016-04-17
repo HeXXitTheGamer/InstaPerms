@@ -31,14 +31,14 @@ class InstaPerm extends PluginBase{
     const PREFIX = TF::BLACK."[".TF::AQUA."InstaPerm".TF::BLACK."]";
     const AUTHOR = "BoxOfDevs Team";
     const VERSION = "1.0";
-    const WEBSITE = "http://boxofdevs.x10host.com/plugins/instaperm";
+    const WEBSITE = "http://boxofdevs.x10host.com/software/instaperm";
     
     public function onEnable(){
         $this->getLogger()->info(TF::GREEN."Enabled!");
     }
     
     public function onCommand(CommandSender $sender, Command $cmd, $label, array $args){
-        if(strolower($cmd->getName()) == "setperm"){
+        if(strolower($cmd->getName()) === "setperm"){
             if(!($sender instanceof Player)){
                 if(!isset($args[1])){
                     $sender->sendMessage(TF::DARK_RED."Usage: /setperm <player> <permission>");
@@ -59,7 +59,7 @@ class InstaPerm extends PluginBase{
                 }
             }
         }
-        if(strolower($cmd->getName()) == "rmperm"){
+        if(strolower($cmd->getName()) === "rmperm"){
             if(!($sender instanceof Player)){
                 if(!isset($args[1])){
                     $sender->sendMessage(TF::DARK_RED."Usage: /rmperm <player> <permission>");
@@ -80,7 +80,21 @@ class InstaPerm extends PluginBase{
                 }
             }
         }
-        if(strolower($cmd->getName()) == "checkperm"){
+        if(strolower($cmd->getName()) === "checkperms"){
+                if(!isset($args[0])){
+                    $sender->sendMessage(TF::DARK_RED."Usage: /checkperms <player>");
+                }else{
+                    $playername = $args[0];
+                    $player = $this->getServer()->getPlayer($playername);
+                    if(!$player instanceof Player) {
+                        $sender->sendMessage(self::PREFIX." Player does not exist");
+                    } else {
+                    $perms = $player->getEffectivePermissions();
+                    $sender->sendMessage(self::PREFIX."$playername's permissions: ".implode(", ", $perms));
+                    }
+                }
+        }
+        if(strolower($cmd->getName()) === "checkperm"){
             if(!($sender instanceof Player)){
                 if(!isset($args[1])){
                     $sender->sendMessage(TF::DARK_RED."Usage: /checkperm <player> <permission>");
