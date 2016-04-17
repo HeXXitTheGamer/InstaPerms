@@ -5,25 +5,35 @@ This plugin was made to be an easy to use, up-to-date permissions manager plugin
 Commands
 =========
 All the commands currently implemented into InstaPerm:
+
     - /setperm <player> <permission> : Gives a player a permission
+
     - /rmperm <player> <permission> : Removes a players permission
+
     - /checkperm <player> <permission> : Checks if a player has a permission
 
 Permissions
 ===========
 All the permissions used by InstaPerm:
+
     - instaperm : InstaPerm Universal Permission, Default: False
+
         • instaperm.set : Allows /setperm, Default: OP
+
         • instaperm.rm : Allows /rmperm, Default: OP
+
         • instaperm.check : Allows /checkperm, Default: OP
 
 Planned Features
 =================
 All the features planned to be added to InstaPerm:
+
     - /seeperms <player> : Shows all a players permissions
+
     - Features with InstaRank & InstaChat
 
 Authors
 ========
 All the BoxOfDevs members who contributed to InstaPerms:
+
     - TheDragonRing
