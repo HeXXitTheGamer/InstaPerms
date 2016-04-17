@@ -1,0 +1,34 @@
+name: InstaPerm
+author: BoxOfDevs Team
+authors:
+- TheDragonRing
+version: 1.0.0
+description: The instant permissions manager that really is instant!
+api:
+- 1.0.0
+- 2.0.0
+main: InstaPerm\Main
+load: STARTUP
+commands:
+    setperm:
+        usage: "/setperm <player> <permission>"
+        description: "Gives a player a permission"
+        permission: instaperm.set
+    rmperm:
+        usage: "/rmperm <player> <permission>" 
+        description: "Removes a players permission"
+        permission: instaperm.rm
+    checkperm:
+        usage: "/checkperm <player> <permission>"
+        description: "Checks if a player has a permission"
+        permission: instaperm.check
+permissions:
+    instaperm:
+        default: false
+        children:
+            instaperm.set:
+                default: op
+            instaperm.rm:
+                default: op
+            instaperm.check:
+                default: op
