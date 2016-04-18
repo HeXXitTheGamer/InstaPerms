@@ -80,9 +80,9 @@ class InstaPerm extends PluginBase{
                 }
             }
         }
-        if(strolower($cmd->getName()) === "checkperms"){
+        if(strolower($cmd->getName()) === "seeperms"){
                 if(!isset($args[0])){
-                    $sender->sendMessage(TF::DARK_RED."Usage: /checkperms <player>");
+                    $sender->sendMessage(TF::DARK_RED."Usage: /seeperms <player>");
                 }else{
                     $playername = $args[0];
                     $player = $this->getServer()->getPlayer($playername);
