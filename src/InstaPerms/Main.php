@@ -71,16 +71,16 @@ class Main extends PluginBase implements CommandExecutor{
             break;
             case "seeperms":
             if(!isset($args[0])){
-				    $sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /seeperms <player>");
+                $sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /seeperms <player>");
             }else{
                 $playername = $args[0];
                 $player = $this->getServer()->getPlayer($playername);
                 $perms = $player->getEffectivePermissions();
                 $plperms = [];
                 foreach($perms as $perm) {
-                array_push($plperms, $perm->getPermission());
-				}
-				    $sender->sendMessage(self::PREFIX . TF::GOLD . $playername . "'s permissions: \n" . TF::AQUA . implode(", ", $plperms));
+                    array_push($plperms, $perm->getPermission());
+	        }
+	        $sender->sendMessage(self::PREFIX . TF::GOLD . $playername . "'s permissions: \n" . TF::AQUA . implode(", ", $plperms));
             }
             return true;
             break;
