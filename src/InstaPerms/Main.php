@@ -17,7 +17,8 @@
 * 
 */
 
-namespace InstaPerms;
+
+namespace InstaPerm;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat as TF;
@@ -34,19 +35,18 @@ use pocketmine\event\player\PlayerCommandPreprocessEvent;
 
 class Main extends PluginBase implements CommandExecutor{
     
-    const PREFIX = TF::BLACK."[".TF::AQUA."InstaPerms".TF::BLACK."] ";
+    const PREFIX = TF::BLACK."[".TF::AQUA."InstaPerm".TF::BLACK."] ";
     const AUTHOR = "BoxOfDevs Team";
     const VERSION = "1.0";
-    const WEBSITE = "http://boxofdevs.x10host.com/software/instaperms";
+    const WEBSITE = "http://boxofdevs.x10host.com/software/instaperm";
     
     public function onEnable(){
         $this->getLogger()->info(self::PREFIX . TF::GREEN . "Enabled!");
     }
-    
-    public function onCommand(CommandSender $sender, Command $cmd, $label, array $args){
-		switch($cmd){
-            case "setperm":
-            if(!isset($args[1])){
+    public function onCommand(CommandSender $sender, Command $cmd, $label, array$args){
+		switch($cmd) {
+       case "setperm":
+			if(!isset($args[1])){
 				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /setperm <player> <permission>");
 			}else{
                 $playername = $args[0];
@@ -63,34 +63,38 @@ class Main extends PluginBase implements CommandExecutor{
 			}else{
                 $playername = $args[0];
                 $player = $this->getServer()->getPlayer($playername);
-				$perm = $args[1];
+				$perm = Server::getInstance()->getPluginManager()->getPermission($args[1]);
 				$player->removeAttachment($this, $perm, true);
- 				$sender->sendMessage(self::PREFIX . TF::GREEN. $perm . "removed from " . $playername . "!");
+ 				$sender->sendMessage(self::PREFIX . TF::GREEN. $perm . " removed from " . $playername . "!");
         	}
 			return true;
 			break;
-            case "seeperms":
+        case "seeperms":
 			if(!isset($args[0])){
 				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /seeperms <player>");
 			}else{
 				$playername = $args[0];
 				$player = $this->getServer()->getPlayer($playername);
 				$perms = $player->getEffectivePermissions();
-				$sender->sendMessage(self::PREFIX . TF::GOLD . $playername . "'s permissions: \n" . TF::AQUA . implode(", ", $perms));
+				$plperms = [];
+				foreach($perms as $perm) {
+					array_push($plperms, $perm->getPermission());
+				}
+				$sender->sendMessage(self::PREFIX . TF::GOLD . $playername . "'s permissions: \n" . TF::AQUA . implode(", ", $plperms));
         	}
 			return true;
 			break;
-            case "hasperm":
+       case "hasperm":
 			if(!isset($args[1])){
-				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /hasperm <player> <permission>");
+				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /checkperm <player> <permission>");
 			}else{
                 $playername = $args[0];
                 $player = $this->getServer()->getPlayer($playername);
 				$perm = $args[1];
                 if($player->hasPermission($perm)){
-                    $sender->sendMessage(self::PREFIX . TF::AQUA . $playername . " has permission" . $perm . "!");
+                    $sender->sendMessage(self::PREFIX . TF::AQUA . $playername . " has permission " . $perm . "!");
                 }else{
-                    $sender->sendMessage(self::PREFIX . TF::AQUA . $playername . " doesn't have permission" . $perm . "!");
+                    $sender->sendMessage(self::PREFIX . TF::AQUA . $playername . " doesn't have permission " . $perm . "!");
                 }
             }
 			return true;
@@ -98,27 +102,20 @@ class Main extends PluginBase implements CommandExecutor{
         }
     return true;
     }
-    
     public function getPrefix(){
         return self::PREFIX;
     }
-    
     public function getAuthor(){
         return self::AUTHOR;
     }
-    
     public function getVersion(){
         return self::VERSION;
     }
-    
     public function getWebsite(){
         return self::WEBSITE;
     }
-    
     public function onDisable(){
         $this->getLogger()->info(self::PREFIX . TF::DARK_RED . "Disabled!");
     }
-    
 }
-
 ?>
