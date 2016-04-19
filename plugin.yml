@@ -27,7 +27,7 @@ commands:
         description: "Shows all a players permissions"
         permission: instaperms.see
 permissions:
-    instaperm:
+    instaperms:
         default: false
         children:
             instaperms.set:
