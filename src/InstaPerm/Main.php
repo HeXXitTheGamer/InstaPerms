@@ -21,46 +21,54 @@ namespace InstaPerm;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat as TF;
+use pocketmine\command\PluginCommand;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\command\PluginCommand;
+use pocketmine\command\CommandExecutor;
 use pocketmine\permission\Permission;
+use pocketmine\Player;
+use pocketmine\event\Listener;
+use pocketmine\IPlayer;
+use pocketmine\Server;
+use pocketmine\event\player\PlayerCommandPreprocessEvent;
 
-class InstaPerm extends PluginBase{
+class Main extends PluginBase implements CommandExecutor{
     
-    const PREFIX = TF::BLACK."[".TF::AQUA."InstaPerm".TF::BLACK."]";
+    const PREFIX = TF::BLACK."[".TF::AQUA."InstaPerm".TF::BLACK."] ";
     const AUTHOR = "BoxOfDevs Team";
     const VERSION = "1.0";
     const WEBSITE = "http://boxofdevs.x10host.com/software/instaperm";
     
     public function onEnable(){
-        $this->getLogger()->info(slef::PREFIX . TF::GREEN . "Enabled!");
+        $this->getLogger()->info(self::PREFIX . TF::GREEN . "Enabled!");
     }
-    
-    public function onCommand(CommandSender $sender, Command $cmd, $label, array $args){
-        if(strolower($cmd->getName()) === "setperm"){
+    public function onCommand(CommandSender $sender, Command $cmd, $label, array$args){
+		switch($cmd) {
+       case "setperm":
 			if(!isset($args[1])){
 				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /setperm <player> <permission>");
 			}else{
                 $playername = $args[0];
                 $player = $this->getServer()->getPlayer($playername);
 				$perm = $args[1];
-				$player->setPermission($perm);
- 				$sender->sendMessage(self::PREFIX . TF::GREEN. $perm . "successfully set to " . $playername . "!");
+				$player->addAttachment($this, $perm, true);
+ 				$sender->sendMessage(self::PREFIX . TF::GREEN. $perm . " successfully set to " . $playername . "!");
         	}
-		}
-        if(strolower($cmd->getName()) === "rmperm"){
+			return true;
+			break;
+			case "rmperm":
 			if(!isset($args[1])){
 				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /rmperm <player> <permission>");
 			}else{
                 $playername = $args[0];
                 $player = $this->getServer()->getPlayer($playername);
 				$perm = $args[1];
-				$player->removePermission($perm);
+				$player->removeAttachment($this, $perm, true);
  				$sender->sendMessage(self::PREFIX . TF::GREEN. $perm . "removed from " . $playername . "!");
         	}
-		}
-        if(strolower($cmd->getName()) === "seeperms"){
+			return true;
+			break;
+        case "seeperms":
 			if(!isset($args[0])){
 				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /seeperms <player>");
 			}else{
@@ -69,8 +77,9 @@ class InstaPerm extends PluginBase{
 				$perms = $player->getEffectivePermissions();
 				$sender->sendMessage(self::PREFIX . TF::GOLD . $playername . "'s permissions: \n" . TF::AQUA . implode(", ", $perms));
         	}
-        }
-        if(strolower($cmd->getName()) === "checkperm"){
+			return true;
+			break;
+       case "hasperm":
 			if(!isset($args[1])){
 				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /checkperm <player> <permission>");
 			}else{
@@ -78,11 +87,13 @@ class InstaPerm extends PluginBase{
                 $player = $this->getServer()->getPlayer($playername);
 				$perm = $args[1];
                 if($player->hasPermission($perm)){
-                    $sender->sendMessage(self::PREFIX . TF::AQUA . $playername . "has permission" . $perm . "!");
+                    $sender->sendMessage(self::PREFIX . TF::AQUA . $playername . " has permission" . $perm . "!");
                 }else{
-                    $sender->sendMessage(self::PREFIX . TF::AQUA . $playername . "doesn't have permission" . $perm . "!");
+                    $sender->sendMessage(self::PREFIX . TF::AQUA . $playername . " doesn't have permission" . $perm . "!");
                 }
             }
+			return true;
+			break;
         }
     return true;
     }
