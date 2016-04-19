@@ -86,7 +86,7 @@ class Main extends PluginBase implements CommandExecutor{
 			break;
        case "hasperm":
 			if(!isset($args[1])){
-				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /checkperm <player> <permission>");
+				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /hasperm <player> <permission>");
 			}else{
                 $playername = $args[0];
                 $player = $this->getServer()->getPlayer($playername);
