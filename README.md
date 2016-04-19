@@ -12,6 +12,8 @@ All the commands currently implemented into InstaPerm:
 
     - /checkperm <player> <permission> : Checks if a player has a permission
 
+    - /seeperms <player> : Shows all a players permissions
+
 Permissions
 ===========
 All the permissions used by InstaPerm:
@@ -24,13 +26,7 @@ All the permissions used by InstaPerm:
 
         • instaperm.check : Allows /checkperm, Default: OP
 
-Planned Features
-=================
-All the features planned to be added to InstaPerm:
-
-    - /seeperms <player> : Shows all a players permissions
-
-    - Features with InstaRank & InstaChat
+		• instaperm.see : Allows /seeperms, Default: OP
 
 Authors
 ========

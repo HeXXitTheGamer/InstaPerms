@@ -34,89 +34,53 @@ class InstaPerm extends PluginBase{
     const WEBSITE = "http://boxofdevs.x10host.com/software/instaperm";
     
     public function onEnable(){
-        $this->getLogger()->info(TF::GREEN."Enabled!");
+        $this->getLogger()->info(slef::PREFIX . TF::GREEN . "Enabled!");
     }
     
     public function onCommand(CommandSender $sender, Command $cmd, $label, array $args){
         if(strolower($cmd->getName()) === "setperm"){
-            if(!($sender instanceof Player)){
-                if(!isset($args[1])){
-                    $sender->sendMessage(TF::DARK_RED."Usage: /setperm <player> <permission>");
-                }else{
-                    $player = $args[0];
-                    $perm = $args[1];
-                    $player->setPermission($perm);
-                    $sender->sendMessage(TF::GREEN."$perm successfully set to $player!");
-                }
-            }elseif($sender instanceof Player){
-                if(!isset($args[1])){
-                    $sender->sendMessage(TF::DARK_RED."Usage: /setperm <player> <permission>");
-                }else{
-                    $player = $args[0];
-                    $perm = $args[1];
-                    $player->setPermission($perm);
-                    $sender->sendMessage(TF::GREEN."$perm successfully set to $player!");
-                }
-            }
-        }
+			if(!isset($args[1])){
+				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /setperm <player> <permission>");
+			}else{
+                $playername = $args[0];
+                $player = $this->getServer()->getPlayer($playername);
+				$perm = $args[1];
+				$player->setPermission($perm);
+ 				$sender->sendMessage(self::PREFIX . TF::GREEN. $perm . "successfully set to " . $playername . "!");
+        	}
+		}
         if(strolower($cmd->getName()) === "rmperm"){
-            if(!($sender instanceof Player)){
-                if(!isset($args[1])){
-                    $sender->sendMessage(TF::DARK_RED."Usage: /rmperm <player> <permission>");
-                }else{
-                    $player = $args[0];
-                    $perm = $args[1];
-                    $player->removePermission($perm);
-                    $sender->sendMessage(TF::GREEN."$perm successfully removed from $player!");
-                }
-            }elseif($sender instanceof Player){
-                if(!isset($args[1])){
-                    $sender->sendMessage(TF::DARK_RED."Usage: /rmperm <player> <permission>");
-                }else{
-                    $player = $args[0];
-                    $perm = $args[1];
-                    $player->removePermission($perm);
-                    $sender->sendMessage(TF::GREEN."$perm successfully removed from $player!");
-                }
-            }
-        }
-        if(strolower($cmd->getName()) === "checkperms"){
-                if(!isset($args[0])){
-                    $sender->sendMessage(TF::DARK_RED."Usage: /checkperms <player>");
-                }else{
-                    $playername = $args[0];
-                    $player = $this->getServer()->getPlayer($playername);
-                    if(!$player instanceof Player) {
-                        $sender->sendMessage(self::PREFIX." Player does not exist");
-                    } else {
-                    $perms = $player->getEffectivePermissions();
-                    $sender->sendMessage(self::PREFIX."$playername's permissions: ".implode(", ", $perms));
-                    }
-                }
+			if(!isset($args[1])){
+				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /rmperm <player> <permission>");
+			}else{
+                $playername = $args[0];
+                $player = $this->getServer()->getPlayer($playername);
+				$perm = $args[1];
+				$player->removePermission($perm);
+ 				$sender->sendMessage(self::PREFIX . TF::GREEN. $perm . "removed from to " . $playername . "!");
+        	}
+		}
+        if(strolower($cmd->getName()) === "seeperms"){
+			if(!isset($args[0])){
+				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /seeperms <player>");
+			}else{
+				$playername = $args[0];
+				$player = $this->getServer()->getPlayer($playername);
+				$perms = $player->getEffectivePermissions();
+				$sender->sendMessage(self::PREFIX . TF::GOLD . $playername . "'s permissions: \n" . TF::AQUA . implode(", ", $perms));
+        	}
         }
         if(strolower($cmd->getName()) === "checkperm"){
-            if(!($sender instanceof Player)){
-                if(!isset($args[1])){
-                    $sender->sendMessage(TF::DARK_RED."Usage: /checkperm <player> <permission>");
+			if(!isset($args[1])){
+				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /checkperm <player> <permission>");
+			}else{
+                $playername = $args[0];
+                $player = $this->getServer()->getPlayer($playername);
+				$perm = $args[1];
+                if($player->hasPermission($perm)){
+                    $sender->sendMessage(self::PREFIX . TF::AQUA . $playername . "has permission" . $perm . "!");
                 }else{
-                    $player = $args[0];
-                    $perm = $args[1];
-                    if($player->hasPermission($perm)){
-                        $sender->sendMessage(TF::GREEN."$player has permission $perm!");
-                    }else{
-                        $sender->sendMessage(TF::GREEN."$player doesn't have permission $perm!");
-                    }
-            }elseif($sender instanceof Player){
-                if(!isset($args[1])){
-                    $sender->sendMessage(TF::DARK_RED."Usage: /checkperm <player> <permission>");
-                }else{
-                    $player = $args[0];
-                    $perm = $args[1];
-                    if($player->hasPermission($perm)){
-                        $sender->sendMessage(TF::GREEN."$player has permission $perm!");
-                    }else{
-                        $sender->sendMessage(TF::GREEN."$player doesn't have permission $perm!");
-                    }
+                    $sender->sendMessage(self::PREFIX . TF::AQUA . $playername . "doesn't have permission" . $perm . "!");
                 }
             }
         }
@@ -140,7 +104,7 @@ class InstaPerm extends PluginBase{
     }
     
     public function onDisable(){
-        $this->getLogger()->info(TF::DARK_RED."Disabled!");
+        $this->getLogger()->info(self::PREFIX . TF::DARK_RED . "Disabled!");
     }
     
 }
