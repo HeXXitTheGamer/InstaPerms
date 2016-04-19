@@ -1,14 +1,14 @@
 <?php
 
 /*
-*  ___  ________   ________  _________  ________  ________  _______   ________  _____ ______      
-* |\  \|\   ___  \|\   ____\|\___   ___\\   __  \|\   __  \|\  ___ \ |\   __  \|\   _ \  _   \    
-* \ \  \ \  \\ \  \ \  \___|\|___ \  \_\ \  \|\  \ \  \|\  \ \   __/|\ \  \|\  \ \  \\\__\ \  \   
-*  \ \  \ \  \\ \  \ \_____  \   \ \  \ \ \   __  \ \   ____\ \  \_|/_\ \   _  _\ \  \\|__| \  \  
-*   \ \  \ \  \\ \  \|____|\  \   \ \  \ \ \  \ \  \ \  \___|\ \  \_|\ \ \  \\  \\ \  \    \ \  \ 
-*    \ \__\ \__\\ \__\____\_\  \   \ \__\ \ \__\ \__\ \__\    \ \_______\ \__\\ _\\ \__\    \ \__\
-*     \|__|\|__| \|__|\_________\   \|__|  \|__|\|__|\|__|     \|_______|\|__|\|__|\|__|     \|__|
-*                    \|_________|                                                               
+*
+*ooooo                          .             ooooooooo.                                                 
+*`888'                        .o8             `888   `Y88.                                               
+* 888  ooo. .oo.    .oooo.o .o888oo  .oooo.    888   .d88'  .ooooo.  oooo d8b ooo. .oo.  .oo.    .oooo.o 
+* 888  `888P"Y88b  d88(  "8   888   `P  )88b   888ooo88P'  d88' `88b `888""8P `888P"Y88bP"Y88b  d88(  "8 
+* 888   888   888  `"Y88b.    888    .oP"888   888         888ooo888  888      888   888   888  `"Y88b.  
+* 888   888   888  o.  )88b   888 . d8(  888   888         888    .o  888      888   888   888  o.  )88b 
+*o888o o888o o888o 8""888P'   "888" `Y888""8o o888o        `Y8bod8P' d888b    o888o o888o o888o 8""888P' 
 * 
 * The instant permissions manager that really is instant!
 *
@@ -17,7 +17,7 @@
 * 
 */
 
-namespace InstaPerm;
+namespace InstaPerms;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat as TF;
@@ -34,18 +34,19 @@ use pocketmine\event\player\PlayerCommandPreprocessEvent;
 
 class Main extends PluginBase implements CommandExecutor{
     
-    const PREFIX = TF::BLACK."[".TF::AQUA."InstaPerm".TF::BLACK."] ";
+    const PREFIX = TF::BLACK."[".TF::AQUA."InstaPerms".TF::BLACK."] ";
     const AUTHOR = "BoxOfDevs Team";
     const VERSION = "1.0";
-    const WEBSITE = "http://boxofdevs.x10host.com/software/instaperm";
+    const WEBSITE = "http://boxofdevs.x10host.com/software/instaperms";
     
     public function onEnable(){
         $this->getLogger()->info(self::PREFIX . TF::GREEN . "Enabled!");
     }
-    public function onCommand(CommandSender $sender, Command $cmd, $label, array$args){
-		switch($cmd) {
-       case "setperm":
-			if(!isset($args[1])){
+    
+    public function onCommand(CommandSender $sender, Command $cmd, $label, array $args){
+		switch($cmd){
+            case "setperm":
+            if(!isset($args[1])){
 				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /setperm <player> <permission>");
 			}else{
                 $playername = $args[0];
@@ -68,7 +69,7 @@ class Main extends PluginBase implements CommandExecutor{
         	}
 			return true;
 			break;
-        case "seeperms":
+            case "seeperms":
 			if(!isset($args[0])){
 				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /seeperms <player>");
 			}else{
@@ -79,9 +80,9 @@ class Main extends PluginBase implements CommandExecutor{
         	}
 			return true;
 			break;
-       case "hasperm":
+            case "hasperm":
 			if(!isset($args[1])){
-				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /checkperm <player> <permission>");
+				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /hasperm <player> <permission>");
 			}else{
                 $playername = $args[0];
                 $player = $this->getServer()->getPlayer($playername);
@@ -97,20 +98,27 @@ class Main extends PluginBase implements CommandExecutor{
         }
     return true;
     }
+    
     public function getPrefix(){
         return self::PREFIX;
     }
+    
     public function getAuthor(){
         return self::AUTHOR;
     }
+    
     public function getVersion(){
         return self::VERSION;
     }
+    
     public function getWebsite(){
         return self::WEBSITE;
     }
+    
     public function onDisable(){
         $this->getLogger()->info(self::PREFIX . TF::DARK_RED . "Disabled!");
     }
+    
 }
+
 ?>
