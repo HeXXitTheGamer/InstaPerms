@@ -17,7 +17,6 @@
 * 
 */
 
-
 namespace InstaPerms;
 
 use pocketmine\plugin\PluginBase;
@@ -43,79 +42,87 @@ class Main extends PluginBase implements CommandExecutor{
     public function onEnable(){
         $this->getLogger()->info(self::PREFIX . TF::GREEN . "Enabled!");
     }
+    
     public function onCommand(CommandSender $sender, Command $cmd, $label, array$args){
-		switch($cmd) {
-       case "setperm":
-			if(!isset($args[1])){
-				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /setperm <player> <permission>");
-			}else{
+        switch($cmd){
+            case "setperm":
+            if(!isset($args[1])){
+                $sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /setperm <player> <permission>");
+            }else{
                 $playername = $args[0];
                 $player = $this->getServer()->getPlayer($playername);
-				$perm = $args[1];
-				$player->addAttachment($this, $perm, true);
- 				$sender->sendMessage(self::PREFIX . TF::GREEN. $perm . " successfully set to " . $playername . "!");
-        	}
-			return true;
-			break;
-			case "rmperm":
-			if(!isset($args[1])){
-				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /rmperm <player> <permission>");
-			}else{
+                $perm = Server::getInstance()->getPluginManager()->getPermission($args[1]);
+                $player->addAttachment($this, $perm, true);
+                $sender->sendMessage(self::PREFIX . TF::GREEN. $perm . " successfully set to " . $playername . "!");
+            }
+            return true;
+            break;
+            case "rmperm":
+            if(!isset($args[1])){
+                $sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /rmperm <player> <permission>");
+            }else{
                 $playername = $args[0];
                 $player = $this->getServer()->getPlayer($playername);
-				$perm = Server::getInstance()->getPluginManager()->getPermission($args[1]);
-				$player->removeAttachment($this, $perm, true);
- 				$sender->sendMessage(self::PREFIX . TF::GREEN. $perm . " removed from " . $playername . "!");
-        	}
-			return true;
-			break;
-        case "seeperms":
-			if(!isset($args[0])){
-				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /seeperms <player>");
-			}else{
-				$playername = $args[0];
-				$player = $this->getServer()->getPlayer($playername);
-				$perms = $player->getEffectivePermissions();
-				$plperms = [];
-				foreach($perms as $perm) {
-					array_push($plperms, $perm->getPermission());
+                $perm = Server::getInstance()->getPluginManager()->getPermission($args[1]);
+                $player->removeAttachment($this, $perm, true);
+                $sender->sendMessage(self::PREFIX . TF::GREEN. $perm . " removed from " . $playername . "!");
+            }
+            return true;
+            break;
+            case "seeperms":
+            if(!isset($args[0])){
+				    $sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /seeperms <player>");
+            }else{
+                $playername = $args[0];
+                $player = $this->getServer()->getPlayer($playername);
+                $perms = $player->getEffectivePermissions();
+                $plperms = [];
+                foreach($perms as $perm) {
+                array_push($plperms, $perm->getPermission());
 				}
-				$sender->sendMessage(self::PREFIX . TF::GOLD . $playername . "'s permissions: \n" . TF::AQUA . implode(", ", $plperms));
-        	}
-			return true;
-			break;
-       case "hasperm":
-			if(!isset($args[1])){
-				$sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /hasperm <player> <permission>");
-			}else{
+				    $sender->sendMessage(self::PREFIX . TF::GOLD . $playername . "'s permissions: \n" . TF::AQUA . implode(", ", $plperms));
+            }
+            return true;
+            break;
+            case "hasperm":
+            if(!isset($args[1])){
+                $sender->sendMessage(self::PREFIX . TF::DARK_RED . "Usage: /hasperm <player> <permission>");
+            }else{
                 $playername = $args[0];
                 $player = $this->getServer()->getPlayer($playername);
-				$perm = $args[1];
+                $perm = $args[1];
                 if($player->hasPermission($perm)){
                     $sender->sendMessage(self::PREFIX . TF::AQUA . $playername . " has permission " . $perm . "!");
                 }else{
                     $sender->sendMessage(self::PREFIX . TF::AQUA . $playername . " doesn't have permission " . $perm . "!");
                 }
             }
-			return true;
-			break;
+            return true;
+            break;
         }
     return true;
     }
+
     public function getPrefix(){
         return self::PREFIX;
     }
+
     public function getAuthor(){
         return self::AUTHOR;
     }
+
     public function getVersion(){
         return self::VERSION;
     }
+
     public function getWebsite(){
         return self::WEBSITE;
     }
+
     public function onDisable(){
         $this->getLogger()->info(self::PREFIX . TF::DARK_RED . "Disabled!");
     }
+
 }
+
 ?>
