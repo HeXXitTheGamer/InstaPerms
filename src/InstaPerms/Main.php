@@ -18,7 +18,7 @@
 */
 
 
-namespace InstaPerm;
+namespace InstaPerms;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat as TF;
@@ -35,7 +35,7 @@ use pocketmine\event\player\PlayerCommandPreprocessEvent;
 
 class Main extends PluginBase implements CommandExecutor{
     
-    const PREFIX = TF::BLACK."[".TF::AQUA."InstaPerm".TF::BLACK."] ";
+    const PREFIX = TF::BLACK."[".TF::AQUA."InstaPerms".TF::BLACK."] ";
     const AUTHOR = "BoxOfDevs Team";
     const VERSION = "1.0";
     const WEBSITE = "http://boxofdevs.x10host.com/software/instaperm";
