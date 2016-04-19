@@ -86,27 +86,20 @@ class InstaPerm extends PluginBase{
         }
     return true;
     }
-    
     public function getPrefix(){
         return self::PREFIX;
     }
-
     public function getAuthor(){
         return self::AUTHOR;
     }
-
     public function getVersion(){
         return self::VERSION;
     }
-
     public function getWebsite(){
         return self::WEBSITE;
     }
-    
     public function onDisable(){
         $this->getLogger()->info(self::PREFIX . TF::DARK_RED . "Disabled!");
     }
-    
 }
-
 ?>
