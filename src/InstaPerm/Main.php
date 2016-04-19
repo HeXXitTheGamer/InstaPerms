@@ -57,7 +57,7 @@ class InstaPerm extends PluginBase{
                 $player = $this->getServer()->getPlayer($playername);
 				$perm = $args[1];
 				$player->removePermission($perm);
- 				$sender->sendMessage(self::PREFIX . TF::GREEN. $perm . "removed from to " . $playername . "!");
+ 				$sender->sendMessage(self::PREFIX . TF::GREEN. $perm . "removed from " . $playername . "!");
         	}
 		}
         if(strolower($cmd->getName()) === "seeperms"){
@@ -69,40 +69,6 @@ class InstaPerm extends PluginBase{
 				$perms = $player->getEffectivePermissions();
 				$sender->sendMessage(self::PREFIX . TF::GOLD . $playername . "'s permissions: \n" . TF::AQUA . implode(", ", $perms));
         	}
-=======
-            if(!($sender instanceof Player)){
-                if(!isset($args[1])){
-                    $sender->sendMessage(TF::DARK_RED."Usage: /rmperm <player> <permission>");
-                }else{
-                    $player = $args[0];
-                    $perm = $args[1];
-                    $player->removePermission($perm);
-                    $sender->sendMessage(TF::GREEN."$perm successfully removed from $player!");
-                }
-            }elseif($sender instanceof Player){
-                if(!isset($args[1])){
-                    $sender->sendMessage(TF::DARK_RED."Usage: /rmperm <player> <permission>");
-                }else{
-                    $player = $args[0];
-                    $perm = $args[1];
-                    $player->removePermission($perm);
-                    $sender->sendMessage(TF::GREEN."$perm successfully removed from $player!");
-                }
-            }
-        }
-        if(strolower($cmd->getName()) === "seeperms"){
-                if(!isset($args[0])){
-                    $sender->sendMessage(TF::DARK_RED."Usage: /seeperms <player>");
-                }else{
-                    $playername = $args[0];
-                    $player = $this->getServer()->getPlayer($playername);
-                    if(!$player instanceof Player) {
-                        $sender->sendMessage(self::PREFIX." Player does not exist");
-                    } else {
-                    $perms = $player->getEffectivePermissions();
-                    $sender->sendMessage(self::PREFIX."$playername's permissions: ".implode(", ", $perms));
-                    }
-                }
         }
         if(strolower($cmd->getName()) === "checkperm"){
 			if(!isset($args[1])){
