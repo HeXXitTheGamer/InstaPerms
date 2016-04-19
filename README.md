@@ -1,10 +1,10 @@
 InstaPerm Description
 ======================
-This plugin was made to be an easy to use, up-to-date permissions manager plugin for ImagicalMine. So far, we have achieved our goal! If you want any more permissions features added in, just ask us - Enjoy :D
+This plugin was made to be an easy to use, up-to-date permissions manager plugin for ImagicalMine. So far, we are achieving our goal! If you want any more permissions features added in, just ask us - Enjoy :D
 
 Commands
 =========
-All the commands currently implemented into InstaPerm:
+All the commands currently implemented into InstaPerms:
 
     - /setperm <player> <permission> : Gives a player a permission
 
@@ -16,17 +16,17 @@ All the commands currently implemented into InstaPerm:
 
 Permissions
 ===========
-All the permissions used by InstaPerm:
+All the permissions used by InstaPerms:
 
-    - instaperm : InstaPerm Universal Permission, Default: False
+    - instaperms: InstaPerm Universal Permission, Default: False
 
-        • instaperm.set : Allows /setperm, Default: OP
+        • instaperms.set : Allows /setperm, Default: OP
 
-        • instaperm.rm : Allows /rmperm, Default: OP
+        • instaperms.rm : Allows /rmperm, Default: OP
 
-        • instaperm.has : Allows /checkperm, Default: OP
+        • instaperms.has : Allows /checkperm, Default: OP
 
-		• instaperm.see : Allows /seeperms, Default: OP
+		• instaperms.see : Allows /seeperms, Default: OP
 
 Authors
 ========
